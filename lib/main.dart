@@ -1,6 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:test_app/otp_screen.dart';
 
-void main() {
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -22,7 +27,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.orange,
+        primarySwatch: Colors.teal,
       ),
       home: const MyHomePage(title: 'Uppcl Hierarchy '),
     );
@@ -51,9 +56,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final _formKey = GlobalKey<FormState>();
   int _counter = 0;
-  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  String? emailVal; // Nullable String variable
+  String phoneVal=''; // Nullable String variable
   String? passVal; // Nullable String variable
   static OutlineInputBorder outBorder = OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),
@@ -122,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     focusedBorder: outBorder,
                     focusedErrorBorder: outBorder.copyWith(
                         borderSide: const BorderSide(color: Colors.blue))),
-                controller: emailController,
+                controller: phoneController,
               ),
               SizedBox(height: 20),
               // TextFormField(
@@ -145,11 +150,27 @@ class _MyHomePageState extends State<MyHomePage> {
               // SizedBox(height: 20),
               Container(
                   child: TextButton(
-                onPressed: () {
-                  emailVal=emailController.text;
+                onPressed: () async{
+                  phoneVal=phoneController.text;
+                  await FirebaseAuth.instance.verifyPhoneNumber(
+                    phoneNumber: '+91$phoneVal',
+                    verificationCompleted: (PhoneAuthCredential credential) {},
+                    verificationFailed: (FirebaseAuthException e) {},
+                    codeSent: (String verificationId, int? resendToken) {
+
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context)=>OtpScreen()));},
+                    codeAutoRetrievalTimeout: (String verificationId) {},
+                  );
+
+
+
+                  // emailVal=emailController.text;
                   // passVal=passwordController.text;
-                  print(emailVal);
+                  print(phoneVal);
                   // print(passVal);
+                //
+
                 },
                 child: Text('Send OTP'),
               ))
