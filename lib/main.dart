@@ -48,6 +48,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  final _formKey = GlobalKey<FormState>();
   int _counter = 0;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -55,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String? passVal; // Nullable String variable
   static OutlineInputBorder outBorder = OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),
-      borderSide: BorderSide(color: Colors.amber, width: 2));
+      borderSide: BorderSide(color: Colors.teal, width: 2));
 
   void _incrementCounter() {
     setState(() {
@@ -106,9 +108,11 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               TextFormField(
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                    labelText: "Email",
-                    hintText: "Enter Your Email...",
+                    labelText: "Mobile Number",
+                    prefixText: "+91",
+                    hintText: "Enter Your Mobile Number...",
                     hintStyle: const TextStyle(
                       color: Colors.black87,
                       fontStyle: FontStyle.italic,
@@ -121,33 +125,33 @@ class _MyHomePageState extends State<MyHomePage> {
                 controller: emailController,
               ),
               SizedBox(height: 20),
-              TextFormField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: "Password",
-                  hintText: "Enter Your Password...",
-                  border: outBorder,
-                  disabledBorder: outBorder,
-                  focusedBorder: outBorder,
-                  focusedErrorBorder: outBorder.copyWith(
-                      borderSide: const BorderSide(color: Colors.blue)),
-                  hintStyle: const TextStyle(
-                    color: Colors.black87,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-                controller: passwordController,
-              ),
-              SizedBox(height: 20),
+              // TextFormField(
+              //   obscureText: true,
+              //   decoration: InputDecoration(
+              //     labelText: "Password",
+              //     hintText: "Enter Your Password...",
+              //     border: outBorder,
+              //     disabledBorder: outBorder,
+              //     focusedBorder: outBorder,
+              //     focusedErrorBorder: outBorder.copyWith(
+              //         borderSide: const BorderSide(color: Colors.blue)),
+              //     hintStyle: const TextStyle(
+              //       color: Colors.black87,
+              //       fontStyle: FontStyle.italic,
+              //     ),
+              //   ),
+              //   controller: passwordController,
+              // ),
+              // SizedBox(height: 20),
               Container(
                   child: TextButton(
                 onPressed: () {
                   emailVal=emailController.text;
-                  passVal=passwordController.text;
+                  // passVal=passwordController.text;
                   print(emailVal);
-                  print(passVal);
+                  // print(passVal);
                 },
-                child: Text('Login'),
+                child: Text('Send OTP'),
               ))
             ],
           ),
