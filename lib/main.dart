@@ -22,9 +22,9 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.orange,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Counter '),
+      home: const MyHomePage(title: 'Uppcl Hierarchy '),
     );
   }
 }
@@ -49,8 +49,13 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  TextEditingController textController=TextEditingController();
-  String? textVal;  // Nullable String variable
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  String? emailVal; // Nullable String variable
+  String? passVal; // Nullable String variable
+  static OutlineInputBorder outBorder = OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+      borderSide: BorderSide(color: Colors.amber, width: 2));
 
   void _incrementCounter() {
     setState(() {
@@ -59,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter=_counter+2;
+      _counter = _counter + 2;
     });
   }
 
@@ -77,34 +82,83 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[],
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          // Center is a layout widget. It takes a single child and positions it
+          // in the middle of the parent.
+          child: Column(
+            // Column is also a layout widget. It takes a list of children and
+            // arranges them vertically. By default, it sizes itself to fit its
+            // children horizontally, and tries to be as tall as its parent.
+            //
+            // Invoke "debug painting" (press "p" in the console, choose the
+            // "Toggle Debug Paint" action from the Flutter Inspector in Android
+            // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+            // to see the wireframe for each widget.
+            //
+            // Column has various properties to control how it sizes itself and
+            // how it positions its children. Here we use mainAxisAlignment to
+            // center the children vertically; the main axis here is the vertical
+            // axis because Columns are vertical (the cross axis would be
+            // horizontal).
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              TextFormField(
+                decoration: InputDecoration(
+                    labelText: "Email",
+                    hintText: "Enter Your Email...",
+                    hintStyle: const TextStyle(
+                      color: Colors.black87,
+                      fontStyle: FontStyle.italic,
+                    ),
+                    border: outBorder,
+                    disabledBorder: outBorder,
+                    focusedBorder: outBorder,
+                    focusedErrorBorder: outBorder.copyWith(
+                        borderSide: const BorderSide(color: Colors.blue))),
+                controller: emailController,
+              ),
+              SizedBox(height: 20),
+              TextFormField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: "Password",
+                  hintText: "Enter Your Password...",
+                  border: outBorder,
+                  disabledBorder: outBorder,
+                  focusedBorder: outBorder,
+                  focusedErrorBorder: outBorder.copyWith(
+                      borderSide: const BorderSide(color: Colors.blue)),
+                  hintStyle: const TextStyle(
+                    color: Colors.black87,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+                controller: passwordController,
+              ),
+              SizedBox(height: 20),
+              Container(
+                  child: TextButton(
+                onPressed: () {
+                  emailVal=emailController.text;
+                  passVal=passwordController.text;
+                  print(emailVal);
+                  print(passVal);
+                },
+                child: Text('Login'),
+              ))
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){setState(() {
-          textVal=textController.text;
-            });
-          },
+        onPressed: () {
+          setState(() {
+            // textVal=textController.text;
+          });
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
