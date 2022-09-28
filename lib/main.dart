@@ -56,6 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final _formKey = GlobalKey<FormState>();
   int _counter = 0;
+  var instance=FirebaseAuth.instance;
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   String phoneVal=''; // Nullable String variable
@@ -152,26 +153,23 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: TextButton(
                 onPressed: () async{
                   phoneVal=phoneController.text;
-                  await FirebaseAuth.instance.verifyPhoneNumber(
-                    phoneNumber: '+91$phoneVal',
-                    verificationCompleted: (PhoneAuthCredential credential) {},
-                    verificationFailed: (FirebaseAuthException e) {},
-                    codeSent: (String verificationId, int? resendToken) {
-
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context)=>OtpScreen()));},
-                    codeAutoRetrievalTimeout: (String verificationId) {},
-                  );
-
-
-
-                  // emailVal=emailController.text;
-                  // passVal=passwordController.text;
-                  print(phoneVal);
-                  // print(passVal);
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context)=>OtpScreen(instance:instance,phoneVal:phoneVal)));},
+                //   await instance.verifyPhoneNumber(
+                //     phoneNumber: '+91$phoneVal',
+                //     verificationCompleted: (PhoneAuthCredential credential) {},
+                //     verificationFailed: (FirebaseAuthException e) {},
+                //     codeSent: (String verificationId, int? resendToken) {
                 //
-
-                },
+                //     codeAutoRetrievalTimeout: (String verificationId) {},
+                //   );
+                //   // emailVal=emailController.text;
+                //   // passVal=passwordController.text;
+                //   print(phoneVal);
+                //   // print(passVal);
+                // //
+                //
+                // },
                 child: Text('Send OTP'),
               ))
             ],
