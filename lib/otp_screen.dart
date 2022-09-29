@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:test_app/Dashboard.dart';
+import 'package:test_app/dashboard.dart';
+import 'package:test_app/profilePage.dart';
 
 class OtpScreen extends StatefulWidget{
 
@@ -96,7 +97,7 @@ late String verificationId;
        if(userObj.user!=null){
         print("User Verified");
         Navigator.of(context).push(
-    MaterialPageRoute(builder: (context)=>Dashboard()));}
+    MaterialPageRoute(builder: (context)=>ProfilePage()));}
        else{
          print("User not Verified");
        }
